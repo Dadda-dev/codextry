@@ -9,3 +9,16 @@ test('menu, galleria, policy e richiesta email funzionano',async({page})=>{
  await page.getByRole('button',{name:'Privacy Policy'}).click();await expect(page.getByRole('dialog')).toContainText('DOCUMENTO DA COMPLETARE');await page.keyboard.press('Escape');expect(errors).toEqual([]);
 });
 for(const width of [320,375,430,768,1024,1366,1920])test(`layout senza overflow a ${width}px`,async({page})=>{await page.setViewportSize({width,height:900});await page.goto('/');await expect.poll(()=>page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth)).toBe(true);await expect(page.locator('h1')).toBeInViewport();if(width<=850){await page.getByRole('button',{name:'Apri navigazione'}).click();await expect(page.getByRole('navigation')).toBeVisible();await page.getByRole('navigation').getByRole('link',{name:'Menu',exact:true}).click();await expect(page.getByRole('button',{name:'Apri navigazione'})).toHaveAttribute('aria-expanded','false');}await page.evaluate(()=>document.querySelectorAll('.reveal').forEach(el=>el.classList.add('visible')));await page.locator('img').evaluateAll(imgs=>imgs.forEach(i=>i.setAttribute('loading','eager')));await expect.poll(()=>page.locator('img').evaluateAll(imgs=>imgs.every(i=>i.complete&&i.naturalWidth>0&&i.currentSrc.endsWith('.webp')))).toBe(true);await page.waitForTimeout(1100);if(width===375||width===1366)await page.screenshot({path:`test-results/lumiere-${width}.png`,fullPage:true});});
+
+test('apertura home, font locali e movimento ridotto',async({page})=>{
+ await page.goto('/');
+ await page.evaluate(()=>document.fonts.ready);
+ expect(await page.evaluate(()=>document.fonts.check('600 32px Fraunces')&&document.fonts.check('650 16px "Nunito Sans"'))).toBe(true);
+ await expect(page.locator('.opening-curtain')).toBeHidden({timeout:4000});
+ await expect.poll(()=>page.locator('h1').evaluate(el=>getComputedStyle(el).opacity)).toBe('1');
+ expect(await page.locator('h1').evaluate(el=>getComputedStyle(el).fontFamily)).toContain('Fraunces');
+ await page.emulateMedia({reducedMotion:'reduce'});await page.reload();
+ await expect(page.locator('.opening-curtain')).toBeHidden();
+ expect(await page.locator('h1').evaluate(el=>getComputedStyle(el).animationName)).toBe('none');
+ await expect(page.getByRole('link',{name:'Scopri il menu'})).toBeVisible();
+});

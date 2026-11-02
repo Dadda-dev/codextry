@@ -14,7 +14,7 @@ npm run dev -- --port 5173
 
 `npm run typecheck` verifica TypeScript, `npm run build` crea `dist`, `npm run preview` serve la build. Non è configurato un linter.
 
-`npm test` esegue otto verifiche browser: menu, tastiera, lightbox, email, policy e layout a 320, 375, 430, 768, 1024, 1366 e 1920 px. Nel cloud usa Chromium da `/usr/bin/chromium`. Su altri sistemi installare Chromium con Playwright e rimuovere `executablePath` dalla configurazione. I test non inviano email.
+`npm test` esegue nove verifiche browser: menu, tastiera, lightbox, email, policy e layout a 320, 375, 430, 768, 1024, 1366 e 1920 px. Nel cloud usa Chromium da `/usr/bin/chromium`. Su altri sistemi installare Chromium con Playwright e rimuovere `executablePath` dalla configurazione. I test non inviano email.
 
 ## File principali e personalizzazione
 
@@ -46,3 +46,9 @@ Prima del lancio reale: sostituire tutti i dati dimostrativi, verificare i dirit
 ## Ambiente cloud
 
 Usare questo checkout esistente; ogni task è già isolato, non creare worktree salvo richiesta esplicita. `npm ci` ripristina le dipendenze dal lockfile. I processi non sopravvivono alla pubblicazione dello snapshot: riavviare Vite all’inizio di una nuova sessione. La configurazione riutilizzabile è salvata nella bozza ambiente; la pubblicazione avviene dalle impostazioni.
+
+## Tipografia e apertura della home
+
+Font locali open source: **Fraunces** variabile per i titoli (peso 550–600 e asse SOFT a 75), **Nunito Sans** per testo e controlli. File WOFF2 e licenze OFL in `public/fonts`; nessuna chiamata a Google Fonts. I due font principali sono precaricati nell’HTML.
+
+All’apertura, due pannelli si separano come un sipario; il titolo emerge ingrandendosi, seguito da sottotitolo e pulsanti. L’intera sequenza dura meno di due secondi, non blocca click o scroll e usa animazioni CSS. Con `prefers-reduced-motion: reduce` il sipario e le animazioni sono disabilitati. Tempi, pesi e morbidezza sono personalizzabili in fondo a `src/styles.css`.
