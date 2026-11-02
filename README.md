@@ -27,11 +27,11 @@ npm run dev -- --port 5173
 
 Il nome e il messaggio hero sono centralizzati nella configurazione. Per un rebranding completo aggiornare anche il logo testuale, i testi narrativi in App, titolo e metadati in index.html, favicon e testi email.
 
-## Fotografie: requisito ancora da completare
+## Fotografie locali
 
-La policy cloud attuale blocca `images.unsplash.com`. È stata salvata l’aggiunta del dominio nella bozza delle impostazioni; non è ancora attiva. Il sito usa **illustrazioni SVG originali dimostrative**, non fotografie del ristorante. Nessuna autorizzazione fotografica commerciale è dichiarata.
+Sono incluse sei fotografie d’ispirazione Unsplash, scaricate come WebP in `public/images`: tavola gourmet, cucina professionale, sala, pasta al pesto, tiramisù e verdure. Il sito non effettua richieste a Unsplash: tutte le immagini sono servite dallo stesso hosting. Hero 1920 px, sala 1600 px, altre immagini 1000–1100 px; circa 2 MB complessivi. Hero prioritaria e immagini successive lazy-loaded. L’SVG `placeholder.svg` rimane solo come riserva in caso di errore.
 
-Sostituire gli asset tramite i percorsi centralizzati con fotografie locali WebP/AVIF, verificandone licenza e crediti: hero cinematografica (1920×1280), preparazione chef verticale (900×1200), sala (1600×1100), pasta fresca, verdure stagionali e tiramisù (900×1100). Preferire un servizio fotografico coerente; le fotografie dei piatti devono corrispondere al menu. Aggiornare testi alternativi e immagine Open Graph. È presente un fallback SVG per errori di caricamento.
+Le immagini rappresentano ispirazioni per un ristorante immaginario, non una sede o uno staff di LUMIÈRE. Prima di un lancio per un’attività reale sostituirle con fotografie rappresentative del locale e delle preparazioni effettive. Fonti, identificativi e riferimento alla licenza sono in `public/images/CREDITS.md`. I percorsi restano centralizzati in `src/data/restaurant.ts`.
 
 ## Prenotazioni e recapiti
 
@@ -41,7 +41,7 @@ L’utente compila il form, prepara la mail e apre esplicitamente il programma d
 
 Vercel: importare il repository, preset Vite, build `npm run build`, output `dist`. Netlify: build `npm run build`, directory `dist`. La singola pagina con ancore non richiede rewrite. Pubblicazione e invio su GitHub non sono stati effettuati.
 
-Prima del lancio reale: sostituire tutti i dati dimostrativi, ottenere licenze delle fotografie, confermare prezzi e allergeni, rimuovere o sostituire le testimonianze di fantasia, completare privacy e cookie policy con i dati del titolare e dell’hosting, verificare il canale email. Aggiornare metadati e URL OG assoluti al dominio definitivo. `robots.txt` impedisce intenzionalmente l’indicizzazione della demo: cambiarlo e aggiungere una sitemap solo al dominio definitivo. Non sono inseriti dati strutturati Restaurant per un’attività inesistente. Verificare nuovamente performance e accessibilità con gli asset finali; nessun punteggio Lighthouse dichiarato.
+Prima del lancio reale: sostituire tutti i dati dimostrativi, verificare i diritti delle fotografie definitive, confermare prezzi e allergeni, rimuovere o sostituire le testimonianze di fantasia, completare privacy e cookie policy con i dati del titolare e dell’hosting, verificare il canale email. Aggiornare metadati e URL OG assoluti al dominio definitivo. `robots.txt` impedisce intenzionalmente l’indicizzazione della demo: cambiarlo e aggiungere una sitemap solo al dominio definitivo. Non sono inseriti dati strutturati Restaurant per un’attività inesistente. Verificare nuovamente performance e accessibilità con gli asset finali; nessun punteggio Lighthouse dichiarato.
 
 ## Ambiente cloud
 
